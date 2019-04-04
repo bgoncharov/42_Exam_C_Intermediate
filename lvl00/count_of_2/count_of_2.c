@@ -1,3 +1,5 @@
+#include <stdio.h> // DELETE
+
 void is_2(int i, int *count)
 {
 	if (i >= 10)
@@ -17,4 +19,10 @@ int    count_of_2(int n)
 	while (++i <= n)
 		is_2(i, &count);
 	return (count);
+}
+
+int main () // DELETE
+{
+	printf("%i\n", count_of_2(25));
+	return (0);
 }
