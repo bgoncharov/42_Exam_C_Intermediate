@@ -26,5 +26,7 @@ void    equation(int n)
 int main() // DELETE
 {
 	equation(42);
+	printf("\n");
+	equation(24);
 	return (0);
 }
