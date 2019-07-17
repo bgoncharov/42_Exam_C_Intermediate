@@ -1,39 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_doublon.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bogoncha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/17 15:11:21 by bogoncha          #+#    #+#             */
+/*   Updated: 2019/07/17 15:11:50 by bogoncha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 
 void	print_doublon(int *a, int na, int *b, int nb)
 {
-	int i;
-	int j;
-	int count;
+	int x;
+	int y;
+	int value;
 
-	i = 0;
-	j = 0;
-	count = 0;
-	while (na > i && nb > j)
+	value = 0;
+	x = 0;
+	y = 0;
+	while (x < na && y < nb)
 	{
-		if (a[i] == b[j])
+		if (a[x] == b[y])
 		{
-			if (count > 0)
-				printf(" ");
-			printf("%i", a[i]);
-			i++;
-			j++;
-			count++;
+			if (value == 0)
+				printf("%d", a[x]);
+			else
+				printf(" %d", a[x]);
+			x++;
+			value++;
 		}
-		else if (a[i] < b[j])
-			i++;
-		else
-			j++;
+		else if (a[x] < b[y])
+			x++;
+		else if (a[x] > b[y])
+			y++;
 	}
 	printf("\n");
 }
 
-int     main(void) // DELETE
+int main() //DELETE
 {
-    int a[] = { -5,  2, 10, 15, 50, 70, 100, 200, 300, 1200, 5000 };
-    int b[] = { 2,  4,  5,  6,  7, 10,  40,  70 };
-    int na = 11;
-    int nb = 8;
-    print_doublon(a, na, b, nb);
-    return (0);
+	int a[] = {-5,  2, 10, 15, 50, 70, 100, 200, 300, 1200, 5000};
+	int na = 11;
+	int b[] = {2,  4,  5,  6,  7, 10,  40,  70};
+	int nb = 8;
+
+	print_doublon(a, na, b, nb);
+	return (0);
 }
