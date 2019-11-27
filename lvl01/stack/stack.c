@@ -48,14 +48,14 @@ void push(struct s_stack *stack, void *content)
 
 void *peek(struct s_stack *stack)
 {
-	if (!stack && !stack->top)
+	if (!stack || !stack->top)
 		return (NULL);
 	return (stack->top->content);
 }
 
 int isEmpty(struct s_stack *stack)
 {
-	if (!stack && !stack->top)
+	if (!stack || !stack->top)
 		return (1);
 	return (0);
 }
