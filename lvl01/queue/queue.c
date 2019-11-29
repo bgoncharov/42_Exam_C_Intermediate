@@ -35,8 +35,73 @@ void enqueue(struct s_queue *queue, void *content)
 	queue->last = current;
 }
 
-void *dequeue(struct s_queue *queue);
+void *dequeue(struct s_queue *queue)
+{
+	void *content;
+	struct s_node *temp;
+	if(!queue || !queue->first)
+		return (NULL);
+	content = queue->first->content;
+	temp = queue->first;
+	queue->first = temp->next;
+	free(temp);
+	return (content);
+}
 
-void *peek(struct s_queue *queue);
+void *peek(struct s_queue *queue)
+{
+	if(!queue || !queue->first)
+		return (NULL);
+	return (queue->first->content);
+}
 
-int isEmpty(struct s_queue *queue);
+int isEmpty(struct s_queue *queue)
+{
+	if(!queue || !queue->first)
+		return (1);
+	return (0);
+}
+
+#include <stdio.h>
+
+void	print_queue(struct s_queue *queue)//DELETE
+{
+	struct s_node *temp;
+	int				i;
+
+	i = 1;
+	if (queue->first == NULL)
+		printf("Queue is empty\n");
+	else
+	{
+		temp = queue->first;
+		while (temp)
+		{
+			printf("%d. %s\n", i, (char *)temp->content);
+			temp = temp->next;
+			i++;
+		}
+	}
+}
+
+int		main(void)//DELETE
+{
+	struct s_queue *queue;
+
+	queue = init();
+	enqueue(queue, (void *)"abc");
+	enqueue(queue, (void *)"bcd");
+	enqueue(queue, (void *)"cde");
+	printf("Stack:\n");
+	print_queue(queue);
+	printf("Top of stack: %s\n", (char *)peek(queue));
+	printf("Deleted node: %s\n", (char *)dequeue(queue));
+	printf("Stack:\n");
+	print_queue(queue);
+	printf("Top of stack: %s\n", (char *)peek(queue));
+	if (isEmpty(queue))
+		printf("Stack is empty\n");
+	else
+		printf("Stack is not empty\n");
+	return (0);
+}
