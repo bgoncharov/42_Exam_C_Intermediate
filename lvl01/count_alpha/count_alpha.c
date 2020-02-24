@@ -1,66 +1,45 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   count_alpha.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bogoncha <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 18:41:15 by bogoncha          #+#    #+#             */
-/*   Updated: 2019/10/08 20:25:30 by bogoncha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
 
-char *to_low(char *str)
+static int is_alpha(int c)
 {
-	int i = 0;
+	return (c >= 'a' && c <= 'z');
+}
 
-	while (str[i])
-	{
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			str[i] = str[i] + 32;
-		i++;
-	}
+static char	*lowcase(char *str)
+{
+	for (int i = 0; str[i]; i += 1)
+		str[i] += (str[i] >= 'A' && str[i] <= 'Z') ? 32 : 0;
 	return (str);
 }
 
-void count_alpha(char *str)
+static int  count_alpha(char *s)
 {
-	int i;
-	int f;
-	int al[127] = {0};
+	int tab[26] = {0};
+	char *str = lowcase(s);
+	int total = 0;
+	int	i = -1;
 
-	i = 0;
-	f = 0;
-	while (str[i])
+	while (str[++i])
+		tab[str[i] - 'a'] += (is_alpha(str[i]) ? 1 : 0);
+	i = -1;
+	while (str[++i])
 	{
-		if (str[i] >= 'a' && str[i] <= 'z')
-			al[(unsigned)str[i]]++;
-		i++;
-	}
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] >= 'a' && str[i] <= 'z' && al[(unsigned)str[i]] != 0)
+		if (tab[str[i] - 'a'] > 0)
 		{
-			if (f == 1)
-				printf(", %d%c", al[(unsigned)str[i]], str[i]);
-			else
-			{
-				printf("%d%c", al[(unsigned)str[i]], str[i]);
-				f = 1;
-			}
-			al[(unsigned)str[i]] = 0;
+			if (total > 0)
+				printf(", ");
+			printf("%d%c", tab[str[i] - 'a'], str[i]);
+			tab[str[i] - 'a'] = 0;
+			total += 1;
 		}
-		i++;
 	}
+	return (0);
 }
 
 int main(int argc, char *argv[])
 {
 	if (argc == 2)
-		count_alpha(to_low(argv[1]));
+		count_alpha(argv[1]);
 	printf("\n");
 	return (0);
 }

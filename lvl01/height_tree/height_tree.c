@@ -3,24 +3,17 @@ struct s_node {
     struct s_node **nodes;
 };
 
-int height_tree(struct s_node *root)
+int		height_tree(struct s_node *root)
 {
-    int h;
-    int i;
-    int temp;
+	int	current = 0;
+	int	height = 0;
 
-    h = 0;
-    i = 0;
-    if(!root)
-        return (-1);
-    while(root->nodes[i])
-    {
-        temp = 1 + height_tree(root->nodes[i]);
-        if (temp > h)
-            h = temp;
-        i++;
-    }
-    return (h);
+	if (!root)
+		return (-1);
+	for (int i = 0; root->nodes[i]; i += 1)
+		if ((current = height_tree(root->nodes[i]) + 1) > height)
+			height = current;
+	return (height);
 }
 
 #include <stdio.h>
